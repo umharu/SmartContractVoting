@@ -42,16 +42,8 @@ contract Voting {
     // Evento de Propuesta creada
     event ProposalCreated(uint256 indexed proposalId, string proposal);
 
-
-
-
-
-
     event ProposalApproved(string _message); // <-- Charlarlo con los chicos.
     event ProposalNotApproved(string _message); // <-- 
-
-
-
 
     error ProposalEmpty();  // Error al intentar agregar una propuesta con el empty vacio
     error ErrorNotOwner();  // Error, no es el owner
@@ -60,11 +52,8 @@ contract Voting {
     error ErrorProposalRange(); // Error para controlar la funcion de "finishProposal"
     error ProposalExpired(); // Error si la propuesta ya expiro
 
-    // FALTA IMPLEMENTAR
+    
     error ProposalNotExists(); // Error si la propuesta no existe 
-
-
-
 
     // Funcion para agregar votantes. Solo el owner tiene permiso.
     function addVoter(address[] memory _voter) external {
@@ -75,13 +64,8 @@ contract Voting {
    }
 
 
-
-
-
-    // Mapping que almacena propuestas
+  // Mapping que almacena propuestas
     mapping( uint256 _proposalId => Proposal _proposal ) public ProposalIdProposal;
-
-
 
     // Funcion para crear propuestas 
     function createProposal(string memory _proposal) external {
@@ -98,7 +82,6 @@ contract Voting {
         emit ProposalCreated(counter, _proposal);  
     }
 
-
     // Modificador que controlara si un votante tiene permisos
     modifier onlyVoter() {
         bool isVoter = false;
@@ -114,14 +97,8 @@ contract Voting {
     }
 
 
-
-
-
-
     // Mapping para almacenar si un votante ha votado en una propuesta específica
     mapping(uint256 => mapping(address => bool)) public hasVoted;
-
-
 
     // Función para votar en una propuesta
     function voteProposal(uint256 _proposalId) external onlyVoter {
@@ -138,8 +115,6 @@ contract Voting {
         emit ProposalVoted( _proposalId, msg.sender);
         
     }
-
-
 
 
     function finishProposals(uint256 _startIndex, uint256 _lastIndex) external {
@@ -159,14 +134,7 @@ contract Voting {
         }
     }
 
-
-
-
-
-
-
-
-    
+   
     function getCoolDown() external view returns (uint256) {
         return block.timestamp + deadLine;
     }
